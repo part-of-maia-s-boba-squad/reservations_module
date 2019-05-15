@@ -1,4 +1,4 @@
-# Project Name
+# Open Table Reservation Module
 
 > Project description
 
