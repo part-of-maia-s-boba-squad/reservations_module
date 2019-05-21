@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import moment from 'moment';
 import DateDropdown from './date.jsx';
 import PartySize from './partySize.jsx';
 import TimeDropdown from './time.jsx';
@@ -10,13 +11,17 @@ class Reservations extends React.Component {
   constructor() {
     super();
     this.state = {
-      bookedTimes: null,
+      bookedTimes: "",
+      selectedDate: moment().format("LL"),
+      selectedTime: "12:30 PM", 
+      selectedPartySize: 12,
+      screenChange: 1,
+      availableReservations: []
     };
   }
   
   componentDidMount() {
     this.getBookedTimesRequest();
-    this.getAvailableReservations();
   }
 
   getBookedTimesRequest() {
@@ -34,44 +39,83 @@ class Reservations extends React.Component {
 
   getAvailableReservations() {
     let restID = '001';
-    let partySize = 5;
-    let date = '2019-05-17';
-    let time = '6:00:00';
-    let dateTime = date + ' ' + time;
+    let partySize = this.state.selectedPartySize;
+    let date = this.state.selectedDate;
+    let time = this.state.selectedTime;
+    let dateTime = moment(date + ' ' + time).format("YYYY-MM-DD HH:mm:ss");
 
     axios.get(`/restaurants/${restID}/reservations/?partySize=${partySize}&dateTime=${dateTime}`)
       .then((result) => {
-        console.log(result);
+        var reservationArr = [];
+        for (let i = 0; i < result.data.length; i++) {
+          reservationArr.push(moment(result.data[i].timeSlot));
+        }
+        this.setState({
+          availableReservations: reservationArr,
+          screenChange: this.state.screenChange + 1
+        });
       })
       .catch((err) => {
         console.log(err);
       })
   }
 
+  updateSelectedDate(date) {
+    this.setState({
+      selectedDate: date,
+      screenChange: 1
+    });
+  }
+
+  updateSelectedTime(e) {
+    e.preventDefault();
+    this.setState({
+      selectedTime: e.target.value,
+      screenChange: 1
+    });
+  }
+
+  updatePartySize(e) {
+    e.preventDefault();
+    this.setState({
+      selectedPartySize: e.target.value,
+      screenChange: 1
+    });
+  }
+
   render() {
+    var selectButton = [];
+    if (this.state.screenChange === 1) {
+      selectButton.push(<button id="findATableButton" onClick={this.getAvailableReservations.bind(this)} key="button">Find a Table</button>);
+    } else {
+      for (let i = 0; i < this.state.availableReservations.length; i++) {
+        selectButton.push(<div id="timeChoices" key={`${i}`}><span>{this.state.availableReservations[i].format("LT")}</span></div>)
+      }
+    }
+
     return (
       <div className="container">
         <div id="reservationTitle">
           <h3>
             <span>
-                            Make a reservation
+              Make a reservation
             </span>
           </h3>
         </div>
         <div id="userInput">
           <div>
-            <PartySize />
+            <PartySize updatePartySize={this.updatePartySize.bind(this)} selectedPartySize={this.state.selectedPartySize}/>
             <div className="row">
               <div className="column">
-                <DateDropdown />
+                <DateDropdown updateSelectedDate={this.updateSelectedDate.bind(this)}/>
               </div>
               <div className="column">
-                <TimeDropdown />
+                <TimeDropdown updateSelectedTime={this.updateSelectedTime.bind(this)} selectedTime={this.state.selectedTime}/>
               </div>
             </div>
           </div>
           <div id="buttonRow">
-            <button id="findATableButton">Find a Table</button>
+            {selectButton}
           </div>
           <div id="bookedTimes">
             <svg>

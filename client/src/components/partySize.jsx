@@ -1,21 +1,29 @@
 import React from 'react';
 
 class PartySize extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   render() {
+    var partySizeMenu = [];
+    for (let size = 1; size <= 20; size++) {
+      partySizeMenu.push((<option value={`${size}`} key={`${size}`}>{size}</option>))
+    }
+
     return (
       <div id="partySize">
         <div id="partySizeTitle">
             Party Size
         </div>
-        <select id="partySize">
-          <option value="2">For 2</option>
-          <option value="3">For 3</option>
-          <option value="4">For 4</option>
-        </select>
+        <div>
+          <div id="partySizeMenuText">
+            For {this.props.selectedPartySize}
+          </div>
+          <select id="partySizeMenu" value={this.props.selectedPartySize} onChange={(e) => this.props.updatePartySize(e)}>
+            {partySizeMenu}
+          </select>
+        </div>
       </div>
     );
   }

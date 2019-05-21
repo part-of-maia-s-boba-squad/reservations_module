@@ -1,8 +1,10 @@
 import React from 'react';
+import Calendar from './calendar.jsx';
+import { props } from 'bluebird';
 
 class DateDropdown extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   changeState() {
@@ -14,7 +16,9 @@ class DateDropdown extends React.Component {
       <div>
         <div id="dateTitle">
           Date
-
+        </div>
+        <div>
+          <Calendar updateSelectedDate={this.props.updateSelectedDate}/>
         </div>
       </div>
     );
