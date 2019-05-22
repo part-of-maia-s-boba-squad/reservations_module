@@ -1,4 +1,28 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const PartySizeLabel = styled.div`
+  font-size: .875rem;
+  font-weight: 500;
+  padding-bottom: .25rem;
+  margin: 0;
+  display: block;
+`;
+
+const PartySizeSelectMenu = styled.select`
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  background-color: #fff;
+  font-size: .875rem;
+  display: blocl;
+  width: 100%;
+  height: 35px;
+  -webkit-appearance: none;
+  border-radius: 0;
+  border-bottom: 1px solid #d8d9db;
+`;
+
 
 class PartySize extends React.Component {
   constructor(props) {
@@ -13,16 +37,16 @@ class PartySize extends React.Component {
 
     return (
       <div id="partySize">
-        <div id="partySizeTitle">
+        <PartySizeLabel>
             Party Size
-        </div>
+        </PartySizeLabel>
         <div>
           <div id="partySizeMenuText">
             For {this.props.selectedPartySize}
           </div>
-          <select id="partySizeMenu" value={this.props.selectedPartySize} onChange={(e) => this.props.updatePartySize(e)}>
+          <PartySizeSelectMenu value={this.props.selectedPartySize} onChange={(e) => this.props.updatePartySize(e)}>
             {partySizeMenu}
-          </select>
+          </PartySizeSelectMenu>
         </div>
       </div>
     );

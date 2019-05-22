@@ -1,6 +1,15 @@
 import React from 'react';
 import Calendar from './calendar.jsx';
+import styled from 'styled-components';
 import { props } from 'bluebird';
+
+const DateLabel = styled.div`
+  font-size: .875rem;
+  font-weight: 500;
+  padding-bottom: .25rem;
+  margin: 0;
+  padding: 0;
+`;
 
 class DateDropdown extends React.Component {
   constructor(props) {
@@ -14,9 +23,9 @@ class DateDropdown extends React.Component {
   render() {
     return (
       <div>
-        <div id="dateTitle">
+        <DateLabel>
           Date
-        </div>
+        </DateLabel>
         <div>
           <Calendar updateSelectedDate={this.props.updateSelectedDate}/>
         </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import styled from 'styled-components';
 
 class Calendar extends React.Component{
     constructor(props) {
