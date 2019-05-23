@@ -1,21 +1,40 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const PartySizeDiv = styled.div`
+  position: static;
+`;
+
 const PartySizeLabel = styled.div`
   font-size: .875rem;
   font-weight: 500;
   padding-bottom: .25rem;
   margin: 0;
   display: block;
+  `;
+  
+const PartySizeDisplay = styled.div`
+  font-family: inherit;
+  background-color: #fff;
+  font-size: .875rem;
+  height: 35px;
+  position: absolute;
+  display: table;
 `;
 
-const PartySizeSelectMenu = styled.select`
+const PartySizeSpan = styled.div`
+  display: table-cell;
+  vertical-align:middle;
+  text-align: center;
+`;
+
+  const PartySizeSelectMenu = styled.select`
   border: none;
   cursor: pointer;
   font-family: inherit;
   background-color: #fff;
   font-size: .875rem;
-  display: blocl;
+  display: block;
   width: 100%;
   height: 35px;
   -webkit-appearance: none;
@@ -36,19 +55,19 @@ class PartySize extends React.Component {
     }
 
     return (
-      <div id="partySize">
+      <PartySizeDiv>
         <PartySizeLabel>
             Party Size
         </PartySizeLabel>
         <div>
-          <div id="partySizeMenuText">
-            For {this.props.selectedPartySize}
-          </div>
+          <PartySizeDisplay>
+            <PartySizeSpan>For {this.props.selectedPartySize}</PartySizeSpan>
+          </PartySizeDisplay>
           <PartySizeSelectMenu value={this.props.selectedPartySize} onChange={(e) => this.props.updatePartySize(e)}>
             {partySizeMenu}
           </PartySizeSelectMenu>
         </div>
-      </div>
+      </PartySizeDiv>
     );
   }
 }

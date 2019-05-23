@@ -2,6 +2,9 @@ import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 
+
+
+
 class Calendar extends React.Component{
     constructor(props) {
         super(props);
@@ -169,7 +172,7 @@ class Calendar extends React.Component{
         let curr = "";
         if (this.state.showYearTable == true) {
             curr = "year";
-        }else {
+        } else {
             curr = "month";
         }
         this.setState({

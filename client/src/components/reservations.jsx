@@ -189,7 +189,7 @@ class Reservations extends React.Component {
   render() {
     var selectButton = [];
     if (this.state.screenChange === 1) {
-      selectButton.push(<FindATableButton onClick={this.getAvailableReservations.bind(this)} key="button">Find a Table</FindATableButton>);
+      selectButton.push(<FindATableButton id="selectButton" onClick={this.getAvailableReservations.bind(this)} key="button">Find a Table</FindATableButton>);
     } else {
       for (let i = 0; i < this.state.availableReservations.length; i++) {
         selectButton.push(<TimeSlotButtons key={`${i}`}><span>{this.state.availableReservations[i].format("LT")}</span></TimeSlotButtons>)
@@ -200,7 +200,7 @@ class Reservations extends React.Component {
       <Container>
         <TitleContainer>
           <TitleH3>
-            <TitleSpan>
+            <TitleSpan id="title">
               Make a reservation
             </TitleSpan>
           </TitleH3>
