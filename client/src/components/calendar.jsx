@@ -2,8 +2,107 @@ import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 
+const CalendarContainer = styled.div`
+    font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    border: 1px solid #d8d9db;
+    background-color: #f1f2f4;
+    padding: 16px 0px;
+    width: 256px;
+`;
 
+const MonthYearTitleDiv = styled.div`
+    position: relative;
+    height: 34px;
+    text-align: center;
+    font-weight: 700;
+    line-height: 2em;
+`;
+    
+const MonthYearTitleSpan = styled.span`
+    display: inline-block;
+`;
 
+const ArrowsSpanLeft = styled.span`
+    position: absolute;
+    left: 10px;
+    top: 0px;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #d8d9db;
+    border-radius: 50%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const ArrowsSvgLeft = styled.svg`
+    transform: rotate(180deg);
+    width: 6px;
+    height: 9px;
+`;
+
+const ArrowsSpanRight = styled.span`
+    position: absolute;
+    left: 210px;
+    top: 0px;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #d8d9db;
+    border-radius: 50%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const ArrowsSvgRight = styled.svg`
+    width: 6px;
+    height: 9px;
+`;
+
+const DayOfWeek = styled.th`
+    padding: .5rem 0;
+    font-size: .875rem;
+    text-align: center;
+    color: #2d333f;
+    font-weight: normal;
+`;
+
+const EachDay = styled.td`
+    display: table-cell;
+    text-align: center;
+    cursor: pointer;
+    vertical-align: middle;
+    border: 1px solid #d8d9db;
+    background-color: #fff;
+    box-sizing: border-box;
+    position: relative;
+    font-weight: 500;
+    background-clip: padding-box;
+    border-collapse: collapse;
+    width: 32px;
+    height: 34px;
+`;
+
+const CalDayEmpty = styled.td`
+    display: table-cell;
+    text-align: center;
+    cursor: pointer;
+    vertical-align: middle;
+    border: 1px solid #d8d9db;
+    box-sizing: border-box;
+    position: relative;
+    font-weight: 500;
+    background-clip: padding-box;
+    border-collapse: collapse;
+    width: 32px;
+    height: 34px;
+`;
 
 class Calendar extends React.Component{
     constructor(props) {
@@ -208,14 +307,14 @@ class Calendar extends React.Component{
         var weekdayshort = moment.weekdaysShort();
         let weekdayshortname = weekdayshort.map(day => {
             return (
-                <th key={day} className="week-day">{day}</th>
+                <DayOfWeek key={day} className="week-day">{day}</DayOfWeek>
             )
         });
 
         let blanks = [];
         for (let i = 0; i < this.firstDayOfMonth(); i++) {
             blanks.push(
-                <td className="calendar-day empty">{""}</td>
+                <CalDayEmpty className="calendar-day empty">{""}</CalDayEmpty>
             );
         }
 
@@ -223,9 +322,9 @@ class Calendar extends React.Component{
         for (let d = 1; d <= this.state.dateObject.daysInMonth(); d++) {
             let currentDay = d ==this.currentDay() ? "today" : "";
             daysInMonth.push(
-                <td key={d} className={`calendar-day ${currentDay}`}>
+                <EachDay key={d} className={`calendar-day ${currentDay}`}>
                 <span onClick={e => this.onDayClick(e, d)}>{d}</span>
-                </td>
+                </EachDay>
             );
         }
 
@@ -251,20 +350,36 @@ class Calendar extends React.Component{
         });
 
         return (
-            <div>
+            <CalendarContainer>
                 <div className="tail-datetime-calendar">
-                    <div 
+                    <MonthYearTitleDiv 
                         className="calendar-navi"
                     >
-                        <span onClick={e => this.onPrev()} className="calendar-button button-prev" >{"<"}</span>
-                        <span className="calendar-label" onClick={e => this.showMonth()}>
-                            {this.month()}
-                        </span>
-                        <span className="calendar-label" onClick={e => this.showYearTable()}>
+                        {/* <span onClick={e => this.onPrev()} className="calendar-button button-prev" >{"<"} */}
+                            <ArrowsSpanLeft onClick={e => this.onPrev()} className="calendar-button button-prev">
+                                <ArrowsSvgLeft>
+                                    <path d='M5.09 3.68L4.39 3 1.56.15a.5.5 0 0 0-.71 0l-.7.7a.5.5 0 0 0 0 .71L2.62 4 .15 6.51a.5.5 0 0 0 0 .71l.71.71a.5.5 0 0 0 .71 0L4.39 5.1l.71-.71a.5.5 0 0 0-.01-.71z'></path>
+                                </ArrowsSvgLeft>
+                            </ArrowsSpanLeft>
+                        {/* </span> */}
+                        {/* <MonthYearTitleSpan className="calendar-label" 
+                            //onClick={e => this.showMonth()}
+                        >
+                            {this.month()} 
+                        </MonthYearTitleSpan>
+                        <MonthYearTitleSpan className="calendar-label" 
+                            //onClick={e => this.showYearTable()}
+                            >
                             {this.year()}
-                        </span>
-                        <span onClick={e => this.onNext()} className="calendar-button button-next" >{">"}</span>
-                    </div>
+                        </MonthYearTitleSpan> */}
+                        <MonthYearTitleSpan>{`${this.month()} ${this.year()}`}</MonthYearTitleSpan>
+                        {/* <span onClick={e => this.onNext()} className="calendar-button button-next" >{">"}</span> */}
+                            <ArrowsSpanRight onClick={e => this.onNext()} className="calendar-button button-next">
+                                <ArrowsSvgRight>
+                                    <path d='M5.09 3.68L4.39 3 1.56.15a.5.5 0 0 0-.71 0l-.7.7a.5.5 0 0 0 0 .71L2.62 4 .15 6.51a.5.5 0 0 0 0 .71l.71.71a.5.5 0 0 0 .71 0L4.39 5.1l.71-.71a.5.5 0 0 0-.01-.71z'></path>
+                                </ArrowsSvgRight>
+                            </ArrowsSpanRight>
+                    </MonthYearTitleDiv>
                 </div>
                     <div className="calendar-date">
                         {this.state.showYearTable && (
@@ -285,7 +400,7 @@ class Calendar extends React.Component{
                         </tbody>
                     </table>
                 </div>)}
-            </div>
+            </CalendarContainer>
         )
     }
 }
