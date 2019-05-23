@@ -20,10 +20,11 @@ const TimeSlotSelectMenu = styled.select`
   border: none;
   width: 100%;
   height: 35px;
+  -webkit-appearance: none;
   border-radius: 0;
   border-bottom: 1px solid #d8d9db;
   text-transform: none;
-
+  &:focus {outline:0;}
 `;
 
 class TimeDropdown extends React.Component {
