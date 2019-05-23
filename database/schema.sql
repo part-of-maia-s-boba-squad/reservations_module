@@ -5,15 +5,16 @@ CREATE DATABASE reservations;
 USE reservations;
 
 CREATE TABLE restaurants (
-    id INT PRIMARY KEY,
+    id VARCHAR(3) PRIMARY KEY,
     name VARCHAR(255),
     resToday INT
 );
 
 CREATE TABLE availability (
-    timeSlot DATETIME PRIMARY KEY,
+    timeSlot DATETIME,
     capacity INT,
-    restaurantId INT,
+    restaurantId VARCHAR(3),
+    PRIMARY KEY (timeSlot, restaurantId),
     FOREIGN KEY (restaurantId)
         REFERENCES restaurants(id)
 );
