@@ -1,7 +1,7 @@
 import React from 'react';
+import moment from 'moment';
 import Calendar from './calendar.jsx';
 import styled from 'styled-components';
-import { props } from 'bluebird';
 
 const DateContainer = styled.div`
   display: relative;
@@ -16,7 +16,12 @@ const DateLabel = styled.div`
 `;
 
 const SelectedDateDiv = styled.div`
-  
+  font-size: .875rem;
+  height: 34px;
+  line-height: 2.2rem;
+  -webkit-appearance: none;
+  border-radius: 0;
+  border-bottom: 1px solid #d8d9db;
 `;
 
 class DateDropdown extends React.Component {
@@ -27,18 +32,32 @@ class DateDropdown extends React.Component {
     };
   }
 
-  changeState() {
-
+  toggleCalendar(e) {
+    e.preventDefault();
+    this.setState({
+      showCalendar: !this.state.showCalendar
+    });
   }
 
   render() {
+    var calendar;
+    if (this.state.showCalendar) {
+      calendar = <Calendar 
+        updateSelectedDate={this.props.updateSelectedDate} 
+        toggleCalendar={this.toggleCalendar.bind(this)}
+      />
+    }
+
     return (
       <DateContainer>
         <DateLabel>
           Date
         </DateLabel>
         <div>
-          <Calendar updateSelectedDate={this.props.updateSelectedDate}/>
+          <SelectedDateDiv onClick={(e) => this.toggleCalendar(e)}>
+            {moment(this.props.selectedDate).format('ddd, M/D')}
+          </SelectedDateDiv>
+          {calendar}
         </div>
       </DateContainer>
     );

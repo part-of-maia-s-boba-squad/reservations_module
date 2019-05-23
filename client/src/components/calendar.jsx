@@ -3,6 +3,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 
 const CalendarContainer = styled.div`
+    position: absolute;
     font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
     border: 1px solid #d8d9db;
     background-color: #f1f2f4;
@@ -36,6 +37,7 @@ const ArrowsSpanLeft = styled.span`
     display: flex;
     justify-content: center;
     align-items: center;
+    &:hover{border: 2px solid #da3743;}
 `;
 
 const ArrowsSvgLeft = styled.svg`
@@ -58,6 +60,7 @@ const ArrowsSpanRight = styled.span`
     display: flex;
     justify-content: center;
     align-items: center;
+    &:hover{border: 2px solid #da3743;}
 `;
 
 const ArrowsSvgRight = styled.svg`
@@ -87,6 +90,7 @@ const EachDay = styled.td`
     border-collapse: collapse;
     width: 32px;
     height: 34px;
+    &:hover{border: 2px solid #da3743;}
 `;
 
 const CalDayEmpty = styled.td`
@@ -102,6 +106,7 @@ const CalDayEmpty = styled.td`
     border-collapse: collapse;
     width: 32px;
     height: 34px;
+    &:hover{border: 2px solid #da3743;}
 `;
 
 class Calendar extends React.Component{
@@ -292,7 +297,9 @@ class Calendar extends React.Component{
     }
 
     onDayClick(e, d) {
+        e.preventDefault();
         this.props.updateSelectedDate(`${this.month()} ${d}, ${this.year()}`);
+        this.props.toggleCalendar(e);
         // this.setState({
         //     selectedDay: d,
         //     selectedMonth: this.month(),

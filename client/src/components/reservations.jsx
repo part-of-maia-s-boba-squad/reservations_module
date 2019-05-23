@@ -54,6 +54,11 @@ const DateAndTimeRow = styled.div`
   padding: 0;
 `;
 
+const Columns = styled.div`
+  width: 50%;
+  margin: 5px;
+`;
+
 const ButtonRow = styled.div`
   justify-content: center;
   display: flex;
@@ -209,12 +214,12 @@ class Reservations extends React.Component {
           <div>
             <PartySize updatePartySize={this.updatePartySize.bind(this)} selectedPartySize={this.state.selectedPartySize}/>
             <DateAndTimeRow>
-              <div className="column">
+              <Columns className="column">
                 <DateDropdown updateSelectedDate={this.updateSelectedDate.bind(this)} selectedDate={this.state.selectedDate}/>
-              </div>
-              <div className="column">
+              </Columns>
+              <Columns className="column">
                 <TimeDropdown updateSelectedTime={this.updateSelectedTime.bind(this)} selectedTime={this.state.selectedTime}/>
-              </div>
+              </Columns>
             </DateAndTimeRow>
           </div>
           <ButtonRow>

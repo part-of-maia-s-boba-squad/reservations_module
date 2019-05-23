@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const PartySizeDiv = styled.div`
   position: relative;
+  margin: 5px;
 `;
 
 const PartySizeLabel = styled.div`
