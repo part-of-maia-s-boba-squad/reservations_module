@@ -68,6 +68,15 @@ const ArrowsSvgRight = styled.svg`
     height: 9px;
 `;
 
+const CalendarTableDiv = styled.div`
+    display: flex;
+    justify-content: center;
+`;
+
+const CalendarTable = styled.table`
+    border-collapse: collapse;
+`;
+
 const DayOfWeek = styled.th`
     padding: .5rem 0;
     font-size: .875rem;
@@ -87,7 +96,6 @@ const EachDay = styled.td`
     position: relative;
     font-weight: 500;
     background-clip: padding-box;
-    border-collapse: collapse;
     width: 32px;
     height: 34px;
     &:hover{border: 2px solid #da3743;}
@@ -103,7 +111,6 @@ const CalDayEmpty = styled.td`
     position: relative;
     font-weight: 500;
     background-clip: padding-box;
-    border-collapse: collapse;
     width: 32px;
     height: 34px;
     &:hover{border: 2px solid #da3743;}
@@ -300,14 +307,6 @@ class Calendar extends React.Component{
         e.preventDefault();
         this.props.updateSelectedDate(`${this.month()} ${d}, ${this.year()}`);
         this.props.toggleCalendar(e);
-        // this.setState({
-        //     selectedDay: d,
-        //     selectedMonth: this.month(),
-        //     selectedYear: this.year()
-        // }, () => {
-        //     console.log(this.month(), this.state.selectedDay, this.year());
-        //     console.log(props)
-        // });
     }
 
     render() {
@@ -327,7 +326,7 @@ class Calendar extends React.Component{
 
         let daysInMonth = [];
         for (let d = 1; d <= this.state.dateObject.daysInMonth(); d++) {
-            let currentDay = d ==this.currentDay() ? "today" : "";
+            let currentDay = d == this.currentDay() ? "today" : "";
             daysInMonth.push(
                 <EachDay key={d} className={`calendar-day ${currentDay}`}>
                 <span onClick={e => this.onDayClick(e, d)}>{d}</span>
@@ -335,7 +334,16 @@ class Calendar extends React.Component{
             );
         }
 
-        var totalSlots = [...blanks, ...daysInMonth];
+        let blanksEnd = [];
+        if ((blanks.length+daysInMonth.length)%7 !== 0) {
+            for (let i = 0; i < 7 - (blanks.length+daysInMonth.length)%7; i++) {
+                blanksEnd.push(
+                    <CalDayEmpty className="calendar-day empty">{""}</CalDayEmpty>
+                );
+            }
+        }
+
+        var totalSlots = [...blanks, ...daysInMonth,...blanksEnd];
         let rows = [];
         let cells = [];
 
@@ -395,8 +403,8 @@ class Calendar extends React.Component{
                         <this.MonthList data={moment.months()} setMonth={this.setMonth.bind(this)} /> }
                     </div>
                 {this.state.showDateTable && (
-                <div>
-                    <table>
+                <CalendarTableDiv>
+                    <CalendarTable>
                         <thead>
                             <tr>
                                 {weekdayshortname}
@@ -405,8 +413,8 @@ class Calendar extends React.Component{
                         <tbody>
                             {daysinmonth}
                         </tbody>
-                    </table>
-                </div>)}
+                    </CalendarTable>
+                </CalendarTableDiv>)}
             </CalendarContainer>
         )
     }
