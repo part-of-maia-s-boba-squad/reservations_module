@@ -27,13 +27,13 @@ describe('Reservations', () => {
         const wrapper = shallow(<Reservations />);
         expect(wrapper.state().selectedTime).toBe('12:30 PM');
     });
-    // const clickFn = jest.fn();
-    // it('should have click button', () => {
-    //     const wrapper = shallow(<Reservations handleClick={clickFn}/>);
-    //     console.log(wrapper.find('#selectButton').debug());
-    //     wrapper.find('#selectButton').simulate('click');
-    //     expect(clickFn).toHaveBeenCalled();
-    // });
+
+    it('should have function getAvailableReservations button', () => {
+        const spy = jest.spyOn(Reservations.prototype, 'getAvailableReservations');
+        const wrapper = shallow(<Reservations />);
+        wrapper.find('#selectButton').simulate('click');
+        expect(spy).toHaveBeenCalled();
+    });
 
 
 });

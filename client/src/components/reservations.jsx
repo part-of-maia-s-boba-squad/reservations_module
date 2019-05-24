@@ -79,6 +79,9 @@ const IconSvg = styled.svg`
 const BookedTimesRow = styled.div`
   text-align: left;
   margin: 1rem 0 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
   padding: 0;
   display: flex;
   align-items: center;
@@ -112,7 +115,30 @@ const TimeSlotButtons = styled.button`
   padding: 0 .25rem;
   margin: .25rem;
   display: inline-block;
-  border-radius: 2px;
+  border-radius: 3px;
+  &:focus {outline:0;};
+`;
+
+const NoReservationsDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+  font-size: .875rem;
+  background-color: #f1f2f4;
+  padding: .5rem;
+`;
+
+const ExclamationMark = styled.div`
+  height: 100%;
+  padding: 5px;
+`;
+
+const SelectATimeText = styled.div`
+  width: 100%;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  font-family: inherit;
 `;
 
 class Reservations extends React.Component {
@@ -192,13 +218,22 @@ class Reservations extends React.Component {
   }
 
   render() {
-    var selectButton = [];
+    var searchResults = [];
     if (this.state.screenChange === 1) {
-      selectButton.push(<FindATableButton id="selectButton" onClick={this.getAvailableReservations.bind(this)} key="button">Find a Table</FindATableButton>);
-    } else {
+      searchResults.push(<FindATableButton id="selectButton" onClick={this.getAvailableReservations.bind(this)} key="button">Find a Table</FindATableButton>);
+    } else if (this.state.availableReservations.length > 0) {
+      searchResults.push(<SelectATimeText>Select a time:</SelectATimeText>);
       for (let i = 0; i < this.state.availableReservations.length; i++) {
-        selectButton.push(<TimeSlotButtons key={`${i}`}><span>{this.state.availableReservations[i].format("LT")}</span></TimeSlotButtons>)
+        searchResults.push(<TimeSlotButtons key={`${i}`}><span>{this.state.availableReservations[i].format("LT")}</span></TimeSlotButtons>)
       }
+    } else {
+      searchResults.push(
+      <NoReservationsDiv>
+        <ExclamationMark>
+          <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><title>icon/ic_information</title><desc>Created with Sketch.</desc><defs><circle id="path-11" cx={10} cy={10} r={10} /><rect id="path-2" x={0} y={3} width={2} height={5} rx="0.5" /><rect id="path-3" x={0} y={0} width={2} height={2} rx="0.5" /></defs><g id="Symbols" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd"><g id="icon/ic_information"><g id="ic_information"><rect id="boundry" x={0} y={0} width={24} height={24} /><g id="Group-41" transform="translate(2.000000, 2.000000)"><g id="Oval"><use fill="#333333" fillRule="evenodd" xlinkHref="#path-11" /><circle stroke="#333333" strokeWidth={2} cx={10} cy={10} r={9} /></g><g id="Group-4" transform="translate(10.000000, 10.000000) scale(1, -1) translate(-10.000000, -10.000000) translate(9.000000, 6.000000)"><g id="Rectangle-3"><use fill="#D8D8D8" fillRule="evenodd" xlinkHref="#path-2" /><rect stroke="#FFFFFF" strokeWidth={1} x="0.5" y="3.5" width={1} height={4} rx="0.5" /></g><g id="Rectangle-3"><use fill="#D8D8D8" fillRule="evenodd" xlinkHref="#path-3" /><rect stroke="#FFFFFF" strokeWidth={1} x="0.5" y="0.5" width={1} height={1} rx="0.5" /></g></g></g></g></g></g></svg>
+        </ExclamationMark>  
+        <span>At the moment, there’s no online availability within 2.5 hours of {this.state.selectedTime}. Have another time in mind?</span>
+      </NoReservationsDiv>)
     }
 
     return (
@@ -223,7 +258,7 @@ class Reservations extends React.Component {
             </DateAndTimeRow>
           </div>
           <ButtonRow>
-            {selectButton}
+            {searchResults}
           </ButtonRow>
           <BookedTimesRow>
             <IconSvg>
