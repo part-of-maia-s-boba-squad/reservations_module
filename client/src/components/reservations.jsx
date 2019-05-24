@@ -133,6 +133,14 @@ const ExclamationMark = styled.div`
   padding: 5px;
 `;
 
+const SelectATimeText = styled.div`
+  width: 100%;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  font-family: inherit;
+`;
+
 class Reservations extends React.Component {
   constructor() {
     super();
@@ -214,6 +222,7 @@ class Reservations extends React.Component {
     if (this.state.screenChange === 1) {
       searchResults.push(<FindATableButton id="selectButton" onClick={this.getAvailableReservations.bind(this)} key="button">Find a Table</FindATableButton>);
     } else if (this.state.availableReservations.length > 0) {
+      searchResults.push(<SelectATimeText>Select a time:</SelectATimeText>);
       for (let i = 0; i < this.state.availableReservations.length; i++) {
         searchResults.push(<TimeSlotButtons key={`${i}`}><span>{this.state.availableReservations[i].format("LT")}</span></TimeSlotButtons>)
       }

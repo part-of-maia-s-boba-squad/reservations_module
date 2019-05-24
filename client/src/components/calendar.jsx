@@ -144,8 +144,8 @@ class Calendar extends React.Component{
     }
 
     MonthList(props) {
-        console.log(props)
         let months = [];
+        //props.data is an array of all months
         props.data.map(data => {
             months.push(
                 <td
@@ -162,6 +162,7 @@ class Calendar extends React.Component{
         let cells = [];
 
         months.forEach((row, i) => {
+            //push into rows with 3 columns each row
             if (i % 3 !== 0 || i==0) {
                 cells.push(row);
             } else {
@@ -170,11 +171,14 @@ class Calendar extends React.Component{
                 cells.push(row);
             }
         });
+        //push last row into rows
         rows.push(cells);
+        //add to table row
         let monthlist = rows.map((d, i) => {
             return <tr>{d}</tr>;
         });
 
+        
         return (
             <table className="calendar-month">
                 <thead>
