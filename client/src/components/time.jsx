@@ -13,6 +13,7 @@ const TimeLabel = styled.div`
   padding-bottom: .25rem;
   margin: 0;
   padding: 0;
+  font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
 `;
 
 const TimeSlotSelectMenu = styled.select`
@@ -30,6 +31,7 @@ const TimeSlotSelectMenu = styled.select`
   border-bottom: 1px solid #d8d9db;
   text-transform: none;
   background-color: Transparent;
+  font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
   &:focus {outline:0;};
   &:hover{border-bottom: 2px solid #da3743;};
 `;
