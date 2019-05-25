@@ -2,16 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 
 const PartySizeDiv = styled.div`
+  grid-column: 1/3;
   position: relative;
-  margin: 5px;
+  @media(max-width:1055px) {
+    grid-column: 1/2;
+  }
 `;
 
 const PartySizeLabel = styled.div`
   font-size: .875rem;
   font-weight: 500;
-  padding-bottom: .25rem;
+  padding: 0;
   margin: 0;
   display: block;
+  font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
 `;
   
 const PartySizeDisplay = styled.div`
@@ -22,7 +26,7 @@ const PartySizeDisplay = styled.div`
   position: absolute;
   top: 20px;
   display: table;
-  width: 290px;
+  width: 100%;
   z-index: -1;
 `;
 
@@ -30,6 +34,7 @@ const PartySizeSpan = styled.div`
   display: table-cell;
   vertical-align:middle;
   text-align: left;
+  font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
 `;
 
   const PartySizeSelectMenu = styled.select`
@@ -46,6 +51,7 @@ const PartySizeSpan = styled.div`
   border-radius: 0;
   border-bottom: 1px solid #d8d9db;
   z-index: 1;
+  font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
   &:focus {outline:0;}
   &:hover{border-bottom: 2px solid #da3743;};
 `;
@@ -53,7 +59,7 @@ const PartySizeSpan = styled.div`
 export const DownArrow = styled.svg`
   position: absolute;
   top: 0;
-  right: 16px;
+  right: 4px;
   height: 100%;
   width: .5rem;
   fill: #6f737b;

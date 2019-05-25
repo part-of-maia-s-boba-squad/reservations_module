@@ -9,23 +9,35 @@ import TimeDropdown from './time.jsx';
 
 const Container = styled.div`
   box-shadow: 0 2px 8px rgba(153,153,153,.4);
-  width: 320px;
+  width: 288px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  padding: 16px;
+  @media(max-width:1055px) {
+    width: 608px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 `;
 
 const TitleContainer = styled.div`
   width: 100%;
   height: 48px;
-  padding: 0 16px;
   margin: 0;
   padding: 0;
-`;
+  grid-column: 1/3;
+  font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+  @media(max-width:1055px) {
+    grid-column: 1/4;
+  }
+  `;
 
 const TitleSpan = styled.span`
   font-size: 21px;
   font-weight: 700;
   line-height: 24px;
   text-align: center;
-  font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+  font-family: inherit;
 `;
 
 const TitleH3 = styled.h3`
@@ -35,40 +47,32 @@ const TitleH3 = styled.h3`
   justify-content: center;
   flex-direction: column;
   padding: 0;
-  margin: 0 1rem;
+  margin: 0;
   border-bottom: 1px solid #d8d9db;
 `;
 
-const UserInputContainer = styled.div`
-  padding: .5rem 1rem 1rem;
-  magin-bottom: 1rem;
-  font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
-  display: block;
-`;
-
-const DateAndTimeRow = styled.div`
-  display: flex;
-  margin: 0;
-  margin-top: .5rem;
-  flex: 1 100%;
-  padding: 0;
-`;
-
-const Columns = styled.div`
-  width: 50%;
-  margin: 5px;
-`;
-
 const ButtonRow = styled.div`
-  justify-content: center;
+  grid-column: 1/3;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
   margin: 1rem auto 0;
   overflow: hidden;
   width: 100%;
   padding: 0;
+  justify-content: center;
+  align-items: center;
+  @media(max-width:1055px) {
+    grid-column: 1/4;
+  }
+`;
+
+const AvailableButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  @media(max-width:1055px) {
+    justify-content: center;
+  }
 `;
 
 const IconSvg = styled.svg`
@@ -77,14 +81,20 @@ const IconSvg = styled.svg`
 `;
 
 const BookedTimesRow = styled.div`
+  grid-column: 1/3;
   text-align: left;
-  margin: 1rem 0 0;
+  margin: 10px;
   font-size: 14px;
   font-weight: 500;
+  font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
   line-height: 20px;
   padding: 0;
   display: flex;
   align-items: center;
+  @media(max-width:1055px) {
+    grid-column: 1/4;
+    justify-content: center;
+  }
 `;
 
 const FindATableButton = styled.div`
@@ -97,8 +107,11 @@ const FindATableButton = styled.div`
   border: none;
   font-size: 1rem;
   line-height: 1.5;
-  width: 18rem;
+  width: 80%;
   text-align: center;
+  @media(max-width:1055px) {
+    width: 256px;
+  }
 `;
 
 const TimeSlotButtons = styled.button`
@@ -116,16 +129,17 @@ const TimeSlotButtons = styled.button`
   margin: .25rem;
   display: inline-block;
   border-radius: 3px;
+  font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
   &:focus {outline:0;};
 `;
 
 const NoReservationsDiv = styled.div`
   display: flex;
   flex-direction: row;
-  font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+  font-family: inherit;
   font-size: .875rem;
   background-color: #f1f2f4;
-  padding: .5rem;
+  padding: 1rem;
 `;
 
 const ExclamationMark = styled.div`
@@ -138,8 +152,11 @@ const SelectATimeText = styled.div`
   font-size: 18px;
   font-weight: 700;
   line-height: 24px;
-  font-family: inherit;
-`;
+  font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+  @media(max-width:1055px) {
+    text-align: center;
+  }
+  `;
 
 class Reservations extends React.Component {
   constructor() {
@@ -218,16 +235,18 @@ class Reservations extends React.Component {
   }
 
   render() {
-    var searchResults = [];
+    var searchResults;
     if (this.state.screenChange === 1) {
-      searchResults.push(<FindATableButton id="selectButton" onClick={this.getAvailableReservations.bind(this)} key="button">Find a Table</FindATableButton>);
+      searchResults = <FindATableButton id="selectButton" onClick={this.getAvailableReservations.bind(this)} key="button">Find a Table</FindATableButton>;
     } else if (this.state.availableReservations.length > 0) {
-      searchResults.push(<SelectATimeText>Select a time:</SelectATimeText>);
+      var buttons = [];
+      buttons.push(<SelectATimeText>Select a time:</SelectATimeText>);
       for (let i = 0; i < this.state.availableReservations.length; i++) {
-        searchResults.push(<TimeSlotButtons key={`${i}`}><span>{this.state.availableReservations[i].format("LT")}</span></TimeSlotButtons>)
+        buttons.push(<TimeSlotButtons key={`${i}`}><span>{this.state.availableReservations[i].format("LT")}</span></TimeSlotButtons>);
       }
+      searchResults = <AvailableButtons>{buttons}</AvailableButtons>;
     } else {
-      searchResults.push(
+      searchResults = (
       <NoReservationsDiv>
         <ExclamationMark>
           <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><title>icon/ic_information</title><desc>Created with Sketch.</desc><defs><circle id="path-11" cx={10} cy={10} r={10} /><rect id="path-2" x={0} y={3} width={2} height={5} rx="0.5" /><rect id="path-3" x={0} y={0} width={2} height={2} rx="0.5" /></defs><g id="Symbols" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd"><g id="icon/ic_information"><g id="ic_information"><rect id="boundry" x={0} y={0} width={24} height={24} /><g id="Group-41" transform="translate(2.000000, 2.000000)"><g id="Oval"><use fill="#333333" fillRule="evenodd" xlinkHref="#path-11" /><circle stroke="#333333" strokeWidth={2} cx={10} cy={10} r={9} /></g><g id="Group-4" transform="translate(10.000000, 10.000000) scale(1, -1) translate(-10.000000, -10.000000) translate(9.000000, 6.000000)"><g id="Rectangle-3"><use fill="#D8D8D8" fillRule="evenodd" xlinkHref="#path-2" /><rect stroke="#FFFFFF" strokeWidth={1} x="0.5" y="3.5" width={1} height={4} rx="0.5" /></g><g id="Rectangle-3"><use fill="#D8D8D8" fillRule="evenodd" xlinkHref="#path-3" /><rect stroke="#FFFFFF" strokeWidth={1} x="0.5" y="0.5" width={1} height={1} rx="0.5" /></g></g></g></g></g></g></svg>
@@ -245,28 +264,18 @@ class Reservations extends React.Component {
             </TitleSpan>
           </TitleH3>
         </TitleContainer>
-        <UserInputContainer>
-          <div>
-            <PartySize updatePartySize={this.updatePartySize.bind(this)} selectedPartySize={this.state.selectedPartySize}/>
-            <DateAndTimeRow>
-              <Columns className="column">
-                <DateDropdown updateSelectedDate={this.updateSelectedDate.bind(this)} selectedDate={this.state.selectedDate}/>
-              </Columns>
-              <Columns className="column">
-                <TimeDropdown updateSelectedTime={this.updateSelectedTime.bind(this)} selectedTime={this.state.selectedTime}/>
-              </Columns>
-            </DateAndTimeRow>
-          </div>
-          <ButtonRow>
-            {searchResults}
-          </ButtonRow>
-          <BookedTimesRow>
-            <IconSvg>
-              <path d="M15.5,5 C15.2239,5 15,5.223846 15,5.5 L15,6.5 C15,6.77615 15.2239,7 15.5,7 L17.5858,7 L14,10.58578 L12.70711,9.29291 L12.35355,8.93933 C12.15829,8.74408 11.84171,8.74408 11.64645,8.93933 L11.29289,9.29291 L5,15.5858 L5,7 L11.5,7 C11.77614,7 12,6.77615 12,6.5 L12,5.5 C12,5.22385 11.77614,5 11.5,5 L5,5 C3.89543,5 3,5.89542 3,7 L3,17 C3,18.1046 3.89543,19 5,19 L19,19 C20.1046,19 21,18.1046 21,17 L21,14.5 C21,14.2238 20.7761,14 20.5,14 L19.5,14 C19.2239,14 19,14.2238 19,14.5 L19,17 L6.4142,17 L12,11.41422 L13.2929,12.70709 L13.6464,13.06067 C13.8417,13.25592 14.1583,13.25592 14.3536,13.06067 L14.7071,12.70709 L19,8.41422 L19,10.5 C19,10.77615 19.2239,11 19.5,11 L20.5,11 C20.7761,11 21,10.77615 21,10.5 L21,6 L21,5.5 C21,5.223846 20.7761,5 20.5,5 L20,5 L15.5,5 Z" id="bookedIcon" fill="#333333" fillRule="nonzero" mask="url(#mask-2)"></path>
-            </IconSvg>
-            {`Booked ${this.state.bookedTimes} times today`}
-          </BookedTimesRow>
-        </UserInputContainer>
+        <PartySize updatePartySize={this.updatePartySize.bind(this)} selectedPartySize={this.state.selectedPartySize}/>
+        <DateDropdown updateSelectedDate={this.updateSelectedDate.bind(this)} selectedDate={this.state.selectedDate}/>
+        <TimeDropdown updateSelectedTime={this.updateSelectedTime.bind(this)} selectedTime={this.state.selectedTime}/>
+        <ButtonRow>
+          {searchResults}
+        </ButtonRow>
+        <BookedTimesRow>
+          <IconSvg>
+            <path d="M15.5,5 C15.2239,5 15,5.223846 15,5.5 L15,6.5 C15,6.77615 15.2239,7 15.5,7 L17.5858,7 L14,10.58578 L12.70711,9.29291 L12.35355,8.93933 C12.15829,8.74408 11.84171,8.74408 11.64645,8.93933 L11.29289,9.29291 L5,15.5858 L5,7 L11.5,7 C11.77614,7 12,6.77615 12,6.5 L12,5.5 C12,5.22385 11.77614,5 11.5,5 L5,5 C3.89543,5 3,5.89542 3,7 L3,17 C3,18.1046 3.89543,19 5,19 L19,19 C20.1046,19 21,18.1046 21,17 L21,14.5 C21,14.2238 20.7761,14 20.5,14 L19.5,14 C19.2239,14 19,14.2238 19,14.5 L19,17 L6.4142,17 L12,11.41422 L13.2929,12.70709 L13.6464,13.06067 C13.8417,13.25592 14.1583,13.25592 14.3536,13.06067 L14.7071,12.70709 L19,8.41422 L19,10.5 C19,10.77615 19.2239,11 19.5,11 L20.5,11 C20.7761,11 21,10.77615 21,10.5 L21,6 L21,5.5 C21,5.223846 20.7761,5 20.5,5 L20,5 L15.5,5 Z" id="bookedIcon" fill="#333333" fillRule="nonzero" mask="url(#mask-2)"></path>
+          </IconSvg>
+          {`Booked ${this.state.bookedTimes} times today`}
+        </BookedTimesRow>
       </Container>
     );
   }

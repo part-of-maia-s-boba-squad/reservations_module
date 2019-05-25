@@ -13,6 +13,7 @@ const DateLabel = styled.div`
   padding-bottom: .25rem;
   margin: 0;
   padding: 0;
+  font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
 `;
 
 const SelectedDateDiv = styled.div`
@@ -24,6 +25,7 @@ const SelectedDateDiv = styled.div`
   border-bottom: 1px solid #d8d9db;
   display: flex;
   position: relative;
+  font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
   &:hover{border-bottom: 2px solid #da3743;};
 `;
 
