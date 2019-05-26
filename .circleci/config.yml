@@ -4,11 +4,9 @@ jobs:
    docker:
      - image: alpine:3.7
    steps:
-     - run:
-         name: The First Step
-         command: |
-           echo 'Hello World!'
-           echo 'This is the delivery pipeline'
+     - checkout
+     - run: npm install
+     - run: npm run test
 
 
 workflows:
