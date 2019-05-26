@@ -131,6 +131,7 @@ const TimeSlotButtons = styled.button`
   border-radius: 3px;
   font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
   &:focus {outline:0;};
+  &:hover{background-color: #f5a5ab;};
 `;
 
 const NoReservationsDiv = styled.div`

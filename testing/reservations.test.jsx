@@ -10,11 +10,11 @@ import { isTSAnyKeyword, tsImportEqualsDeclaration } from '@babel/types';
 
 
 describe('Reservations', () => {
-    it('should have two columns', () => {
+    it('should have a title', () => {
         const wrapper = shallow(<Reservations />);
-        var test = wrapper.find('.column');
+        var test = wrapper.find('#title');
         // console.log(test.debug());
-        expect(test).toHaveLength(2);
+        expect(test).toHaveLength(1);
     });
 
     it('should render a title for this component', () => {

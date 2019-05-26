@@ -7,6 +7,7 @@ const DateContainer = styled.div`
   display: relative;
 `;
 
+
 const DateLabel = styled.div`
   font-size: .875rem;
   font-weight: 500;
