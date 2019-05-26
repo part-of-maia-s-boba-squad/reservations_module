@@ -9,11 +9,11 @@ jobs:
      - run: npm run test
 
 
-workflows:
-  version: 2
-  main:
-    jobs:
-    - build:
-        filters:
-          branches:
-            only: setup-circleci
+# workflows:
+#   version: 2
+#   main:
+#     jobs:
+#     - build:
+#         filters:
+#           branches:
+#             only: setup-circleci
