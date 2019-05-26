@@ -2,7 +2,7 @@ import React from 'react';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
-import PartySize, {DownArrow} from '../client/src/components/PartySize.jsx';
+import PartySize, {DownArrow} from '../client/src/components/partySize.jsx';
 
 import { shallow, mount, render } from 'enzyme';
 
