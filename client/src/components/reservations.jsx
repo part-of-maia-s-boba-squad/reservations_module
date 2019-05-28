@@ -177,8 +177,9 @@ class Reservations extends React.Component {
   }
 
   getBookedTimesRequest() {
+    var url = 'http://localhost:3010';
     var restID = Math.floor(Math.random()*100+1).toString().padStart(3, '0');
-    axios.get(`/restaurants/${restID}/bookedTimes`)
+    axios.get(`${url}/restaurants/${restID}/bookedTimes`)
       .then((result) => {
         this.setState({
           bookedTimes: result.data,
