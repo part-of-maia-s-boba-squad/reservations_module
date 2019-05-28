@@ -5,7 +5,7 @@ const path = require('path');
 const models = require('../database/models.js');
 
 const app = express();
-var port = 3000;
+var port = 3010;
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../public')));

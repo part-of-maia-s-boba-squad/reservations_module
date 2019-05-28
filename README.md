@@ -1,13 +1,13 @@
 # Open Table Reservation Module
 
-> Project description
+> Open Table reservations module as part of the entire webapp.
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/krummurk/photos-module
+  - https://github.com/krummurk/customer-reviews
+  - https://github.com/krummurk/textDetails_module
+  - https://github.com/krummurk/reservations-proxy
 
 ## Table of Contents
 
@@ -32,8 +32,11 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 From within the root directory:
 
-```sh
-npm install -g webpack
 npm install
-```
+//run mysql schema file: mysql -u root -p < ./database/schema.sql
+npm run seed
+npm run react-dev
+npm run server
+
+//server runs on port 3010
 
