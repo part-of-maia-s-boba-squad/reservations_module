@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get('/restaurants/:restID/bookedTimes', (req, res) => {
+app.get('/reservations/:restID/bookedTimes', (req, res) => {
   models.queryNumberOfResToday(req.params.restID, (err, result) => {
     if (err) {
       res.status(400).send(err);
@@ -23,7 +23,7 @@ app.get('/restaurants/:restID/bookedTimes', (req, res) => {
   })
 });
 
-app.get('/restaurants/:restID/reservations', (req, res) => {
+app.get('/reservations/:restID/reservations', (req, res) => {
   console.log(req.params.restID, req.query.partySize, req.query.dateTime);
   models.queryAvailableReservations(req.params.restID, req.query.partySize, req.query.dateTime, (err, results) => {
     if (err) {
