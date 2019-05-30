@@ -21,7 +21,7 @@ class Reservations extends React.Component {
 
   getBookedTimesRequest() {
     var restID = Math.floor(Math.random()*100+1).toString().padStart(3, '0');
-    axios.get(`/bookedTimes?restID=${restID}`)
+    axios.get(`/restaurants/${restID}/bookedTimes`)
       .then((result) => {
         this.setState({
           bookedTimes: result.data,
@@ -39,7 +39,7 @@ class Reservations extends React.Component {
     let time = '6:00:00';
     let dateTime = date + ' ' + time;
 
-    axios.get(`/reservations?restID=${restID}&partySize=${partySize}&dateTime=${dateTime}`)
+    axios.get(`/restaurants/${restID}/reservations/?partySize=${partySize}&dateTime=${dateTime}`)
       .then((result) => {
         console.log(result);
       })

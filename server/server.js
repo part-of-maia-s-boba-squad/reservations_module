@@ -11,8 +11,8 @@ app.use(express.static('../public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get('/bookedTimes', (req, res) => {
-  models.queryNumberOfResToday(Number(req.query.restID), (err, result) => {
+app.get('/restaurants/:restID/bookedTimes', (req, res) => {
+  models.queryNumberOfResToday(Number(req.params.restID), (err, result) => {
     if (err) {
       res.status(400).send(err);
       return;
@@ -22,8 +22,8 @@ app.get('/bookedTimes', (req, res) => {
   })
 });
 
-app.get('/reservations', (req, res) => {
-  console.log(req.query);
+app.get('/restaurants/:restID/reservations', (req, res) => {
+  console.log(req.params.restID, req.query);
   res.status(200).end();
 });
 
