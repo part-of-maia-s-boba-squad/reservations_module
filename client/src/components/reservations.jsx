@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
 import DateDropdown from './date.jsx';
 import PartySize from './partySize.jsx';
@@ -163,7 +163,7 @@ class Reservations extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      restID: this.props.path.split('/restaurants/')[1] || '001',
+      restID: this.props.path.split('/')[2] || '001',
       bookedTimes: "",
       selectedDate: moment().format("LL"),
       selectedTime: "12:30 PM", 
@@ -174,15 +174,12 @@ class Reservations extends React.Component {
   }
   
   componentDidMount() {
-    console.log(window.location)
-
     this.getBookedTimesRequest();
   }
 
   getBookedTimesRequest() {
-    // var url = 'http://localhost:3010';
-    // var restID = Math.floor(Math.random()*100+1).toString().padStart(3, '0');
-    axios.get(`/reservations/${this.state.restID}/bookedTimes`)
+    console.log(this.state.restID)
+    axios.get(`/API/restaurant/reservation/${this.state.restID}/bookedTimes`)
       .then((result) => {
         this.setState({
           bookedTimes: result.data,
@@ -198,8 +195,7 @@ class Reservations extends React.Component {
     let date = this.state.selectedDate;
     let time = this.state.selectedTime;
     let dateTime = moment(date + ' ' + time).format("YYYY-MM-DD HH:mm:ss");
-    // var url = 'http://localhost:3010';
-    axios.get(`/reservations/${this.state.restID}/reservations/?partySize=${partySize}&dateTime=${dateTime}`)
+    axios.get(`/API/restaurant/reservation/${this.state.restID}/reservations/?partySize=${partySize}&dateTime=${dateTime}`)
       .then((result) => {
         var reservationArr = [];
         for (let i = 0; i < result.data.length; i++) {
