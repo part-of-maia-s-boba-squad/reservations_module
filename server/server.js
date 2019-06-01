@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-const models = require('../database/models.js');
+const models = require('./models.js');
 
 const app = express();
 var port = 3010;

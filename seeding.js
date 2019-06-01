@@ -4,6 +4,8 @@ var faker = require('faker');
 var moment = require('moment');
 moment().format();
 
+
+
 var restaurants = [];
 for (let i = 1; i <= 100; i++) {
     restaurants.push([i.toString().padStart(3, 0), faker.company.companyName(), faker.random.number({min: 0, max: 100})])

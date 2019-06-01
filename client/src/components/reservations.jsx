@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 
 import DateDropdown from './date.jsx';
 import PartySize from './partySize.jsx';

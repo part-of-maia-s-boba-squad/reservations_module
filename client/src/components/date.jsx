@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import Calendar from './calendar.jsx';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 
 const DateContainer = styled.div`
   display: relative;

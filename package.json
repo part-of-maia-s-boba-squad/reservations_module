@@ -9,9 +9,9 @@
   },
   "scripts": {
     "react-dev": "webpack -d --watch",
-    "server": "nodemon ./server/server.js",
+    "server": "node ./server/server.js",
     "test": "jest",
-    "seed": "node ./database/seeding.js"
+    "seed": "node ./server/seeding.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
