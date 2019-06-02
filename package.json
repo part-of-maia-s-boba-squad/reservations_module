@@ -9,6 +9,7 @@
   },
   "scripts": {
     "react-dev": "webpack -d --watch",
+    "bundle": "webpack -p",
     "server": "node ./server/server.js",
     "test": "jest",
     "seed": "node ./server/seeding.js"
