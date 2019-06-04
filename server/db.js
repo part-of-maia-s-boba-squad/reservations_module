@@ -1,11 +1,10 @@
-var mysql = require('mysql');
+const mysql = require('mysql');
 
-var connection = mysql.createConnection({
-    host     : '172.17.0.2',
-    user     : 'root',
-    password : 'hackreactor',
-    database : 'reservations'
-  });
-
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'password',
+  database: 'reservations',
+});
 
 module.exports.connection = connection;
