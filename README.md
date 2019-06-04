@@ -40,7 +40,8 @@ npm run server
 
 //server runs on port 3010
 
-##CRUD
-| API Endpoints | Request Type | Input | Output | Description |
-| ----------------- | ------------ | ------------- | ------------------------ | ----------------- |
-|/API/restaurant/id | Get | Restaurant ID |Restaurant Doc with time searched and whether or not the resaurant is booked | Gets corresponding restaurant's booking information |
+## CRUD
+
+| API Endpoints      | Request Type | Input         | Output                                                                       | Description                                         |
+| ------------------ | ------------ | ------------- | ---------------------------------------------------------------------------- | --------------------------------------------------- |
+| /API/restaurant/id | Get          | Restaurant ID | Restaurant Doc with time searched and whether or not the resaurant is booked | Gets corresponding restaurant's booking information |
