@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 
 const CalendarContainer = styled.div`
     position: absolute;

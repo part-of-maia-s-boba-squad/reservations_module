@@ -1,0 +1,6 @@
+node_modules
+.circleci
+client
+testing
+database
+webpack.config.js
