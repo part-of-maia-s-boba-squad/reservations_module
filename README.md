@@ -43,6 +43,8 @@ npm run server
 /localhost:3010/restaurant/001
 
 ##CRUD Operations
-| API Endpoints | Request Type | Input | Output | Description |
+|   API Endpoints   | Request Type |     Input     |       Output             |    Description    |
 | ----------------- | ------------ | ------------- | ------------------------ | ----------------- |
-|/API/restaurant/id | Get | Restaurant ID |Restaurant Doc with time searched and whether or not the resaurant is booked | Gets corresponding restaurant's booking information
+|/API/restaurant/id |     Get      | Restaurant ID |Restaurant Doc with time searched and whether or not the resaurant is booked | Gets corresponding restaurant's booking information |
+
+
