@@ -14,6 +14,7 @@
 1. [Usage](#Usage)
 1. [Requirements](#requirements)
 1. [Development](#development)
+1. [CRUD Operations](#CRUD)
 
 ## Usage
 
@@ -39,12 +40,7 @@ npm run server
 
 //server runs on port 3010
 
-/API/restaurant/photo/:id
-/localhost:3010/restaurant/001
-
-##CRUD Operations
-|   API Endpoints   | Request Type |     Input     |       Output             |    Description    |
+##CRUD
+| API Endpoints | Request Type | Input | Output | Description |
 | ----------------- | ------------ | ------------- | ------------------------ | ----------------- |
-|/API/restaurant/id |     Get      | Restaurant ID |Restaurant Doc with time searched and whether or not the resaurant is booked | Gets corresponding restaurant's booking information |
-
-
+|/API/restaurant/id | Get | Restaurant ID |Restaurant Doc with time searched and whether or not the resaurant is booked | Gets corresponding restaurant's booking information |
