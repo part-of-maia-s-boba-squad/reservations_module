@@ -42,7 +42,9 @@ npm run server
 
 ## CRUD
 
-| API Endpoints      | Request Type | Input         | Output                                                                       | Description                                         |
-| ------------------ | ------------ | ------------- | ---------------------------------------------------------------------------- | --------------------------------------------------- |
-| /API/restaurant/id | GET          | Restaurant ID | Restaurant doc with time searched and whether or not the resaurant is booked | Gets corresponding restaurant's booking information |
-| /API/restaurant/id | PATCH        | Restaurant ID | Status Code : 200                                                            | Updates Restaurant Doc                              |
+| API Endpoints      | Request Type | Input                                 | Output                                                                       | Description                                               |
+| ------------------ | ------------ | ------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------- |
+| /API/restaurant/id | GET          | Restaurant ID                         | Restaurant doc with time searched and whether or not the resaurant is booked | Gets corresponding restaurant's booking information       |
+| /API/restaurant/id | POST         | Restaurant ID, Date, Time, Party Size | Status Code : 201                                                            | Posts new document for reservation to restaurant          |
+| /API/restaurant/id | UPDATE       | Restaurant ID, Date, Time, Party Size | Status Code : 200                                                            | Updates the restaurant reservations document              |
+| /API/restaurant/id | DELETE       | Restaurant ID, Date, Time, Party Size | Status Code : 200                                                            | Removes reservation from restaurant reservations document |
