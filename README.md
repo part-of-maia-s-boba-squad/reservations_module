@@ -44,4 +44,5 @@ npm run server
 
 | API Endpoints      | Request Type | Input         | Output                                                                       | Description                                         |
 | ------------------ | ------------ | ------------- | ---------------------------------------------------------------------------- | --------------------------------------------------- |
-| /API/restaurant/id | Get          | Restaurant ID | Restaurant Doc with time searched and whether or not the resaurant is booked | Gets corresponding restaurant's booking information |
+| /API/restaurant/id | GET          | Restaurant ID | Restaurant doc with time searched and whether or not the resaurant is booked | Gets corresponding restaurant's booking information |
+| /API/restaurant/id | PATCH        | Restaurant ID | Status Code : 200                                                            | Updates Restaurant Doc                              |
