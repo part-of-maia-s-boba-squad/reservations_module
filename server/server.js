@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -10,15 +11,19 @@ const app = express();
 const port = 3010;
 
 app.use(cors());
-app.use('/', expressStaticGzip(path.join(__dirname, '../public'), {
-  enableBrotli: true,
-  orderPreference: ['br', 'gz'],
-  setHeaders(res, path) {
-    res.setHeader('Cache-Control', 'public, max-age=31536000');
-  },
-  index: false,
-}));
-// app.use(express.static(path.join(__dirname, '../public')));
+
+app.use(
+  '/',
+  expressStaticGzip(path.join(__dirname, '../public'), {
+    enableBrotli: true,
+    orderPreference: ['br', 'gz'],
+    setHeaders(res) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000');
+    },
+    index: false,
+  }),
+);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -39,13 +44,18 @@ app.get('/API/restaurant/reservation/:restID/bookedTimes', (req, res) => {
 
 app.get('/API/restaurant/reservation/:restID/reservations', (req, res) => {
   console.log(req.params.restID, req.query.partySize, req.query.dateTime);
-  models.queryAvailableReservations(req.params.restID, req.query.partySize, req.query.dateTime, (err, results) => {
-    if (err) {
-      res.status(400).send(err);
-      return;
-    }
-    res.status(200).json(results);
-  });
+  models.queryAvailableReservations(
+    req.params.restID,
+    req.query.partySize,
+    req.query.dateTime,
+    (err, results) => {
+      if (err) {
+        res.status(400).send(err);
+        return;
+      }
+      res.status(200).json(results);
+    },
+  );
 });
 
 app.listen(port, () => {
