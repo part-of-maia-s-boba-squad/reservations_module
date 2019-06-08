@@ -25,3 +25,9 @@ build/
 dist/
 
 public/bundle.js
+restaurantdata.csv
+restaurantdata.csv.gz
+tablesdata.csv.gz
+tablesdata.csv
+reservationdata.csv.gz
+reservationdata.csv

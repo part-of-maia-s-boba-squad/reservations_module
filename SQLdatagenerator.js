@@ -43,74 +43,148 @@ const dates = [
   '2019-06-30',
 ];
 
-const date = function() {
+const date = function () {
   const index = Math.floor(Math.random() * (30 - 0) + 0);
   return dates[index];
 };
 
-const capacity = function() {
+const capacity = function () {
   return Math.floor(Math.random() * (10 - 5) + 5);
 };
 
 const times = ['17:00:00', '18:00:00', '18:30:00', '19:00:00', '19:30:00', '20:00:00', '20:30:00'];
 
-var time = function() {
+var time = function () {
   var index = Math.floor(Math.random() * (6 - 0) + 0);
   return times[index];
 };
 
-const reservationNum = function() {
-  return Math.floor(Math.random() * (10 - 1) + 1);
+var reservationNum = function () {
+  const randomNum = Math.floor(Math.random() * (5 - 1) + 1);
+  return randomNum;
 };
 
-const restaurantName = function() {
-  return faker.random.word();
+var restaurantName = function () {
+  return faker.lorem.word();
 };
 
-const name = function() {
+var name = function () {
   return faker.name.findName();
 };
 
-async function restaurants() {
-  const output = fs.createWriteStream('restaurantdata.csv.gz');
-  const compress = zlib.createGzip();
-  compress.pipe(output);
-  var restaurant;
-  for (let i = 0; i < 10000000; i++) {
-    restaurant = i + ', ' + restaurantName() + ', ' + capacity();
-    let write = compress.write(`${restaurant}\n`);
-    if (!write) {
-      await new Promise(resolve => {
-        compress.once('drain', resolve);
-      });
-    }
-    if (i % 100000 === 0) {
-      console.log('written: ', write, restaurant);
-    }
-  }
-  compress.end();
-  compress.on('finish', () => {
-    console.log('done compressing restaurant data');
-  });
-  compress.on('error', err => {
-    console.log(err.stack);
-  });
-}
+// async function restaurants() {
+//   const output = fs.createWriteStream('restaurantdata.csv.gz');
+//   const compress = zlib.createGzip();
+//   compress.pipe(output);
+//   var restaurant;
+//   for (let i = 0; i < 10000000; i++) {
+//     restaurant = i + ', ' + restaurantName() + ', ' + capacity();
+//     let write = compress.write(`${restaurant}\n`);
+//     if (!write) {
+//       await new Promise(resolve => {
+//         compress.once('drain', resolve);
+//       });
+//     }
+//     if (i % 100000 === 0) {
+//       console.log('written: ', write, restaurant);
+//     }
+//   }
+//   compress.end();
+//   compress.on('finish', () => {
+//     console.log('done compressing restaurant data');
+//   });
+//   compress.on('error', err => {
+//     console.log(err.stack);
+//   });
+// }
 
-async function reservation() {
-  const output = fs.createWriteStream('reservationdata.csv.gz');
+// async function reservations() {
+//   const output = fs.createWriteStream('reservationdata.csv.gz');
+//   const compress = zlib.createGzip();
+//   compress.pipe(output);
+//   var reservation;
+//   var id = 0
+//   for (let i = 0; i < 10000000; i++) {
+//     let numRes = reservationNum();
+//     for (let j = 0; j < numRes; j++) {
+//       reservation =
+//        //reservation id(uniq id),restaurant id(fk), table id(fk), date, time, party size, name
+//         id + ', ' + i + ', ' + j + ', ' + date() + ', ' + time() + ', ' + capacity() + ', ' + name();
+//       id+=1
+//       let write = compress.write(`${reservation}\n`)
+//       if (!write) {
+//         await new Promise(resolve => {
+//           compress.once('drain', resolve);
+//         });
+//       }
+//       if(i % 100000 === 0) {
+//         console.log('reservation: ',reservation)
+//       }
+//     }
+//   }
+//   compress.end();
+//   compress.on('finish', () => {
+//     console.log('done compressing reservation data');
+//   });
+//   compress.on('error', err => {
+//     console.log(err.stack);
+//   });
+// }
+
+// async function tables() {
+//   const output = fs.createWriteStream('tablesdata.csv.gz');
+//   const compress = zlib.createGzip();
+//   compress.pipe(output);
+//   var table;
+//   var id = 0
+//   for (let i = 0; i < 10000000; i++) {
+//     let numRes = reservationNum();
+//     for (let j = 0; j < numRes; j++) {
+//        // id (unique id), table id(for restaurant), restaurant id, capacity
+//       table = id + ', ' + j + ', ' + i + ', ' + capacity();
+//        id+=1
+//       let write = compress.write(`${table}\n`);
+//       if (!write) {
+//         await new Promise(resolve => {
+//           compress.once('drain', resolve);
+//         });
+//       }
+//       if(i % 100000 === 0) {
+//         console.log('written: ', write, table)
+//       }
+//     }
+//   }
+//   compress.end();
+//   compress.on('finish', () => {
+//     console.log('done compressing reservation data');
+//   });
+//   compress.on('error', err => {
+//     console.log(err.stack);
+//   });
+// }
+
+// tables();
+
+// reservations();
+
+// restaurants();
+// ------------------------------------------------------------------- //
+
+async function NOSQLreservations() {
+  const output = fs.createWriteStream('NOSQLreservationsdata.csv.gz');
   const compress = zlib.createGzip();
   compress.pipe(output);
   var reservation;
+  var id = 0
   for (let i = 0; i < 10000000; i++) {
-    for (let j = 0; j < reservationNum; j++) {
-      reservation = i + j + ', ' + date() + ', ' + time() + ', ' + capacity() + ', ' + name();
+    let numRes = reservationNum();
+    for (let j = 0; j < numRes; j++) {
+      
+
+       // id (unique id), table id(for restaurant), restaurant id, capacity
+      // reservation = id + ', ' + j + ', ' + i + ', ' + capacity();
+       id+=1
       let write = compress.write(`${reservation}\n`);
-      if (!write) {
-        await new Promise(resolve => {
-          compress.once('drain', resolve);
-        });
-      }
     }
   }
   compress.end();
@@ -122,5 +196,12 @@ async function reservation() {
   });
 }
 
-// restaurants();
-reservation();
+NOSQLreservations();
+  // if (!write) {
+  //   await new Promise(resolve => {
+  //     compress.once('drain', resolve);
+  //   });
+  // }
+  // if(i % 100000 === 0) {
+  //   console.log('written: ', write, reservation)
+  // }
