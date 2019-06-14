@@ -1,0 +1,27 @@
+config:
+  target: 'http://localhost:3010'
+  phases:
+    - duration: 60
+      arrivalRate: 100
+  processor: './randoReservation.js'
+scenarios:
+  - weight: 1
+    flow:
+    - loop:
+      - get: 
+          url: '/reservations/{{$randomNumber(1,10000000)}}'
+      count: 10
+  - weight: 1
+    flow:
+    - loop:
+      - function: 'makeReservation'
+      - post: 
+          url: '/reservations/{{$randomNumber(1,10000000)}}'
+          json: 
+            name: "{{ name }}"
+            partySize: "{{ partySize }}"
+            date: "{{ date }}"
+            time: "{{ time }}"
+            tableId: "{{ tableId }}"
+      count: 10
+    - log: "Posted new reservation: name: {{ name }} ,tableId: {{ tableId }}, date: {{ date }}, time: {{ time }}"

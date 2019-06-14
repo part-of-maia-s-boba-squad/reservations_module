@@ -1,25 +1,22 @@
-const { Client } = require("pg");
+const Pool = require("pg").Pool;
 
-// const client = new Client();
-const client = new Client({
+// const Pool = new Client();
+const pool = new Pool({
   database: "reservations"
 });
 
 const getReservationsMade = (restID, callback) => {
   let sql =
     "SELECT name FROM reservations INNER JOIN restaurants ON reservations .restaurant_id=restaurants.id where restaurant_id=$1";
-  console.log("in DB:", restID);
+  //console.log("in DB:", restID);
   // console.log(sql, [restID]);
-  client.connect();
-  client.query(sql, [restID], (err, res) => {
+  pool.query(sql, [restID], (err, res) => {
     if (err) {
-      console.log("Error connecting:", err);
+      //console.log("Error connecting:", err);
       callback(err, null);
-      client.end();
     } else {
-      console.log("success getting: ", res);
+      //console.log("success getting: ", res);
       callback(null, res.rows.length);
-      client.end();
     }
   });
 };
@@ -31,33 +28,62 @@ const postReservation = (reservationInfo, callback) => {
   // console.log("things I want to insert into db", reservationInfo);
   // console.log("POST Query: ", reservationInfo);
   let sql = "INSERT INTO reservations VALUES (DEFAULT,$1,$2,$3,$4,$5,$6);";
-  client.connect();
-  client.query(sql, reservationInfo, (err, res) => {
+  pool.query(sql, reservationInfo, (err, res) => {
     if (err) {
-      console.log("DATABASE :Error connecting:", err);
+      //console.log("DATABASE :Error connecting:", err);
       callback(err, null);
-      client.end();
     } else {
-      console.log("success posting: ", res);
+      //console.log("success posting: ", res);
       callback(null, "YeeTUS made reservation fosho");
-      client.end();
     }
   });
 };
 
 const deleteReservation = (reservation, cb) => {
-  console.log("in db: ", reservation);
+  //console.log("in db: ", reservation);
   let sql = "DELETE FROM reservations WHERE restaurant_id=$1 AND name=$2";
-  client.connect();
-  client.query(sql, reservation, (err, res) => {
+  pool.query(sql, reservation, (err, res) => {
     if (err) {
-      console.log("we cant delete this try again nerd: ", err);
+      //console.log("we cant delete this try again nerd: ", err);
       cb(err, null);
-      client.end();
     } else {
-      console.log("yay deleted this reservation: ", res);
-      cb(null, 'heck yeah we deleted this reservation');
-      client.end();
+      //console.log("yay deleted this reservation: ", res);
+      cb(null, "heck yeah we deleted this reservation");
+    }
+  });
+};
+
+// const updateReservation = (reservation, cb) => {
+//   console.log(reservation);
+//   let sql =
+//     "UPDATE reservations SET $3 = $4 WHERE name=$2 AND restaurant_id=$1";
+//   console.log('UNSET: value of sql', sql)
+//   pool.connect();
+//   pool.query(sql, reservation, (err, res) => {
+//     console.log('SET:value of sql', sql)
+//     if (err) {
+//       console.log("we cant update this try again nerd: ", err);
+//       cb(err, null);
+//       pool.end();
+//     } else {
+//       console.log("updated this reservation: ", res);
+//       cb(null, "updated reservation");
+//       pool.end();
+//     }
+//   });
+// };
+
+const updateReservation = (reservation, cb) => {
+  //console.log("db will update with this: ", reservation);
+  let sql =
+    "UPDATE reservations SET id = DEFAULT, restaurant_id = $1, table_id = $2, date = $3, time = $4, party_size=$5, name=$6 WHERE name=$6 AND restaurant_id=$1";
+  pool.query(sql, reservation, (err, res) => {
+    if (err) {
+      //console.log("we cant update this try again nerd: ", err);
+      cb(err, null);
+    } else {
+      //console.log("updated this reservation: ", res);
+      cb(null, "updated reservation");
     }
   });
 };
@@ -65,3 +91,4 @@ const deleteReservation = (reservation, cb) => {
 module.exports.getReservationsMade = getReservationsMade;
 module.exports.postReservation = postReservation;
 module.exports.deleteReservation = deleteReservation;
+module.exports.updateReservation = updateReservation;

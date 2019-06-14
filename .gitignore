@@ -32,3 +32,5 @@ tablesdata.csv
 reservationdata.csv.gz
 reservationdata.csv
 cassandrareservations.csv.gz
+newrelic.example.js
+newrelic.js
