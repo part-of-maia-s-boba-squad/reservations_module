@@ -9,9 +9,15 @@ scenarios:
     flow:
     - loop:
       - get: 
-          url: '/reservations/{{$randomNumber(1,10000000)}}'
+          url: '/reservations/{{$randomNumber(4000000,10000000)}}'
       count: 10
-  - weight: 1
+  - weight: 3
+    flow:
+    - loop:
+      - get: 
+          url: '/reservations/{{$randomNumber(1,3999999)}}'
+      count: 10    
+  - weight: 2
     flow:
     - loop:
       - function: 'makeReservation'

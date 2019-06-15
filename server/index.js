@@ -2,19 +2,23 @@ require('newrelic');
 const express = require("express");
 const bodyParser = require("body-parser");
 const db = require("../database/index.js");
+const responseTime = require('response-time')
 
 const app = express();
+
+const redis = require('redis');
+const client = redis.createClient();
+app.use(responseTime());
 
 const port = 3010;
 app.listen(port, () => {
   console.log("Listening on port:", port);
 });
-
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
-app.get("/reservations/:restID", (req, res) => {
-  // console.log(req.params.restID);
+const getReservations = (req, res) => {
+  let restId = req.params.restID
   db.getReservationsMade(req.params.restID, (err, result) => {
     if (err) {
       //console.log("err from server: ", err);
@@ -22,10 +26,40 @@ app.get("/reservations/:restID", (req, res) => {
     } else {
       //console.log("how many reservations made at this restaurant: ", result);
       const numReservations = result.toString();
+      client.setex(restId, 60, numReservations);
       res.status(200).send(numReservations);
     }
   });
-});
+}
+
+const getCache = (req, res) => {
+  let restId = req.params.restID
+  let url = `http://localhost:3010/reservations/${restId}`
+  client.get(url, (err, result) => {
+    if (result) {
+      const numReservations = result.toString();
+      res.status(200).send(numReservations)
+    } else {
+      getReservations(req, res)
+    }
+  })
+}
+
+app.get('/reservations/:restID', getCache)
+
+// app.get("/reservations/:restID", (req, res) => {
+//   // console.log(req.params.restID);
+//   db.getReservationsMade(req.params.restID, (err, result) => {
+//     if (err) {
+//       //console.log("err from server: ", err);
+//       res.status(400).send(err);
+//     } else {
+//       //console.log("how many reservations made at this restaurant: ", result);
+//       const numReservations = result.toString();
+//       res.status(200).send(numReservations);
+//     }
+//   });
+// });
 
 app.post("/reservations/:restID", (req, res) => {
   //console.log("id", req.params.restID);

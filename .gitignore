@@ -34,3 +34,4 @@ reservationdata.csv
 cassandrareservations.csv.gz
 newrelic.example.js
 newrelic.js
+dump.rdb
