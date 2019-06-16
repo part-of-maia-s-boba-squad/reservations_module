@@ -5,19 +5,19 @@ config:
       arrivalRate: 100
   processor: './randoReservation.js'
 scenarios:
-  - weight: 1
+  - weight: 2
     flow:
     - loop:
       - get: 
-          url: '/reservations/{{$randomNumber(4000000,10000000)}}'
+          url: '/reservations/{{$randomNumber(1,9000000)}}'
+      count: 10
+  - weight: 4 
+    flow:
+    - loop:
+      - get: 
+          url: '/reservations/{{$randomNumber(9000001,10000000)}}'
       count: 10
   - weight: 3
-    flow:
-    - loop:
-      - get: 
-          url: '/reservations/{{$randomNumber(1,3999999)}}'
-      count: 10    
-  - weight: 2
     flow:
     - loop:
       - function: 'makeReservation'
@@ -30,4 +30,4 @@ scenarios:
             time: "{{ time }}"
             tableId: "{{ tableId }}"
       count: 10
-    - log: "Posted new reservation: name: {{ name }} ,tableId: {{ tableId }}, date: {{ date }}, time: {{ time }}"
+    # - log: "Posted new reservation: name: {{ name }} ,tableId: {{ tableId }}, date: {{ date }}, time: {{ time }}"
